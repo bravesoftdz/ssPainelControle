@@ -1,9 +1,9 @@
 object frmUpdate: TfrmUpdate
-  Left = 333
-  Top = 161
-  Width = 511
-  Height = 428
-  Caption = 'frmUpdate'
+  Left = 387
+  Top = 121
+  Width = 525
+  Height = 468
+  Caption = 'Atualiza'#231#227'o do Sistema e da Base de Dados'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object frmUpdate: TfrmUpdate
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 503
+    Width = 517
     Height = 62
     Align = alTop
     Color = clWhite
@@ -43,11 +43,11 @@ object frmUpdate: TfrmUpdate
     object Label1: TLabel
       Left = 1
       Top = 1
-      Width = 501
+      Width = 515
       Height = 13
       Align = alTop
       Alignment = taRightJustify
-      Caption = 'Vers'#227'o 16/01/2020'
+      Caption = 'Vers'#227'o 18/05/2020     '
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -58,15 +58,18 @@ object frmUpdate: TfrmUpdate
   end
   object Panel2: TPanel
     Left = 0
-    Top = 344
-    Width = 503
-    Height = 53
+    Top = 374
+    Width = 517
+    Height = 63
     Align = alBottom
+    Color = 16753994
+    Ctl3D = True
+    ParentCtl3D = False
     TabOrder = 0
     object StatusBar1: TStatusBar
       Left = 1
-      Top = 33
-      Width = 501
+      Top = 43
+      Width = 515
       Height = 19
       Panels = <
         item
@@ -79,71 +82,77 @@ object frmUpdate: TfrmUpdate
           Width = 50
         end>
     end
-    object btnAtualizar: TBitBtn
-      Left = 89
-      Top = 3
-      Width = 100
+    object btnAtualizar: TNxButton
+      Left = 65
+      Top = 8
+      Width = 126
       Height = 27
-      Caption = '&Atualizar'
+      Cursor = crHandPoint
+      Caption = 'Atualizar Sistemas'
+      Down = True
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Segoe UI Light'
+      Font.Color = clGreen
+      Font.Height = -12
+      Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
       TabOrder = 1
       OnClick = btnAtualizarClick
     end
-    object BitBtn2: TBitBtn
+    object btnCancelar: TNxButton
       Left = 189
-      Top = 4
-      Width = 109
+      Top = 8
+      Width = 126
       Height = 27
-      Caption = 'Ca&ncelar'
+      Cursor = crHandPoint
+      Caption = 'Cancelar'
+      Down = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Segoe UI Light'
+      Font.Height = -11
+      Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
-      OnClick = BitBtn2Click
+      OnClick = btnCancelarClick
     end
-    object BitBtn1: TBitBtn
-      Left = 299
-      Top = 4
-      Width = 100
+    object btnBanco: TNxButton
+      Left = 313
+      Top = 8
+      Width = 126
       Height = 27
-      Caption = 'Banco'
+      Cursor = crHandPoint
+      Caption = 'Atualizar Banco'
+      Down = True
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Segoe UI Light'
+      Font.Color = clRed
+      Font.Height = -12
+      Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
       TabOrder = 3
-      OnClick = BitBtn1Click
+      OnClick = btnBancoClick
     end
   end
   object Panel3: TPanel
     Left = 0
     Top = 62
-    Width = 503
-    Height = 150
+    Width = 517
+    Height = 158
     Align = alClient
     TabOrder = 2
     object CheckListBox1: TCheckListBox
       Left = 8
       Top = 16
       Width = 465
-      Height = 125
+      Height = 135
       Columns = 2
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
-      Font.Name = 'Segoe UI Light'
+      Font.Name = 'Verdana'
       Font.Style = []
-      ItemHeight = 20
+      ItemHeight = 18
       Items.Strings = (
         'SSF'#225'cil'
         'SSPar'#226'metros'
@@ -155,23 +164,25 @@ object frmUpdate: TfrmUpdate
         'BackUp'
         'BuscaIBPT'
         'SSNFCe'
-        'ConsultaCNPJ')
+        'ConsultaCNPJ'
+        'SSIntegradorPDV'
+        'SSIntegra'#231#227'o Cont'#225'bil')
       ParentFont = False
       TabOrder = 0
     end
   end
   object Panel4: TPanel
     Left = 0
-    Top = 212
-    Width = 503
-    Height = 132
+    Top = 220
+    Width = 517
+    Height = 154
     Align = alBottom
     Color = clBtnShadow
     TabOrder = 3
     object Gauge1: TGauge
-      Left = 50
-      Top = 6
-      Width = 380
+      Left = 18
+      Top = 5
+      Width = 451
       Height = 19
       Color = clBlack
       Font.Charset = DEFAULT_CHARSET
@@ -184,29 +195,29 @@ object frmUpdate: TfrmUpdate
       Progress = 0
     end
     object Shape1: TShape
-      Left = 50
+      Left = 26
       Top = 30
       Width = 13
       Height = 13
       Brush.Color = 8404992
     end
     object Label3: TLabel
-      Left = 66
-      Top = 30
-      Width = 53
-      Height = 13
+      Left = 44
+      Top = 28
+      Width = 71
+      Height = 16
       Caption = 'Programa'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Segoe UI Light'
+      Font.Height = -13
+      Font.Name = 'Verdana'
       Font.Style = [fsBold]
       ParentFont = False
     end
     object lblVersaoNFEBD: TLabel
       Left = 1
-      Top = 111
-      Width = 501
+      Top = 133
+      Width = 515
       Height = 20
       Align = alBottom
       Alignment = taCenter
@@ -219,57 +230,80 @@ object frmUpdate: TfrmUpdate
       ParentFont = False
       Visible = False
     end
-    object Label4: TLabel
-      Left = 128
-      Top = 62
-      Width = 147
-      Height = 16
-      Caption = 'Vers'#227'o Banco Local:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Verdana'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblVersaoLocal: TLabel
-      Left = 280
+    object gbxVendedor: TRzGroupBox
+      Left = 89
       Top = 61
-      Width = 45
-      Height = 16
-      Caption = '00000'
+      Width = 324
+      Height = 58
+      BorderColor = clNavy
+      BorderInner = fsButtonUp
+      BorderOuter = fsBump
+      Caption = ' Vers'#227'o do Banco '
+      Color = clBtnShadow
+      Ctl3D = True
+      FlatColor = clNavy
+      FlatColorAdjustment = 2
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Verdana'
-      Font.Style = [fsBold]
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentCtl3D = False
       ParentFont = False
-    end
-    object Label6: TLabel
-      Left = 37
-      Top = 79
-      Width = 238
-      Height = 16
-      Caption = 'Vers'#227'o do Banco de Atualiza'#231#227'o:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Verdana'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object lblVersaoAtualizacao: TLabel
-      Left = 280
-      Top = 79
-      Width = 45
-      Height = 16
-      Caption = '00000'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Verdana'
-      Font.Style = [fsBold]
-      ParentFont = False
+      TabOrder = 0
+      VisualStyle = vsGradient
+      object Label4: TLabel
+        Left = 112
+        Top = 17
+        Width = 147
+        Height = 16
+        Caption = 'Vers'#227'o Banco Local:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblVersaoLocal: TLabel
+        Left = 264
+        Top = 16
+        Width = 45
+        Height = 16
+        Caption = '00000'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblVersaoAtualizacao: TLabel
+        Left = 264
+        Top = 34
+        Width = 45
+        Height = 16
+        Caption = '00000'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 21
+        Top = 34
+        Width = 238
+        Height = 16
+        Caption = 'Vers'#227'o da Banco de Atualiza'#231#227'o:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
   end
   object ftpUpdate: TIdFTP

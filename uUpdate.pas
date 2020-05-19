@@ -9,7 +9,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, ComCtrls, StdCtrls,
   Buttons, IniFiles, Gauges, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdFTP, IdCoder, IdCoder3to4,
-  IdCoderMIME, ZipMstr, CheckLst, DBXpress, SqlExpr;
+  IdCoderMIME, ZipMstr, CheckLst, DBXpress, SqlExpr, RzPanel, NxCollection;
 
 type
   threadFTP = class(TThread)
@@ -34,23 +34,24 @@ type
     Gauge1: TGauge;
     Shape1: TShape;
     Label3: TLabel;
-    btnAtualizar: TBitBtn;
-    BitBtn2: TBitBtn;
     CheckListBox1: TCheckListBox;
-    BitBtn1: TBitBtn;
     lblVersaoNFEBD: TLabel;
+    gbxVendedor: TRzGroupBox;
     Label4: TLabel;
     lblVersaoLocal: TLabel;
-    Label6: TLabel;
     lblVersaoAtualizacao: TLabel;
+    Label6: TLabel;
+    btnAtualizar: TNxButton;
+    btnCancelar: TNxButton;
+    btnBanco: TNxButton;
     procedure btnAtualizarClick(Sender: TObject);
     procedure ftpUpdateStatus(ASender: TObject; const AStatus: TIdStatus; const AStatusText: String);
     procedure ftpUpdateWork(Sender: TObject; AWorkMode: TWorkMode; const AWorkCount: Integer);
     procedure ftpUpdateDisconnected(Sender: TObject);
     procedure ftpUpdateWorkBegin(Sender: TObject; AWorkMode: TWorkMode; const AWorkCountMax: Integer);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure BitBtn2Click(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnBancoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -81,9 +82,13 @@ begin
 end;
 
 procedure threadFTP.Execute;
+var
+  vArq, vArq2 : String;
 begin
   with frmUpdate do
   begin
+    Gauge1.Visible := True;
+
     ftpupdate.Host     := lerini('FTPUpdate','FTP');
     ftpupdate.Username := lerini('FTPUpdate','Username');
     ftpupdate.Password := Decoder64.DecodeString(lerini('FTPUpdate','Password'));
@@ -101,20 +106,24 @@ begin
   //salvar arquivo original como new
   //ftpupdate.get(lerini('FTPUpdate','Arquivo'),Copy(arquivo_local,1,Length(arquivo_local)-4)+'.new',true);
 
-    Gauge1.ForeColor   := $00804000;
-    Shape1.Brush.Color := $00804000;
-    Label3.Caption     := 'SSFácil';
-    ftpupdate.get(lerini('FTPUpdate','ArquivoZip'),Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip',true);
-
-    //comparar tamanho original com baixado
-    if tamanho_arquivo = fMenu.DSiFileSize(Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip') then
+    if CheckListBox1.Checked[0] then   //SSFacil
     begin
-      RenameFile(arquivo_local,Copy(arquivo_local,1,Length(arquivo_local)-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-      Descompacta(Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip');
+      Gauge1.ForeColor   := $00804000;
+      Shape1.Brush.Color := $00804000;
+      Label3.Caption     := 'SSFácil';
+      ftpupdate.get(lerini('FTPUpdate','ArquivoZip'),Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip',true);
 
-      //Aplica a data do arquivo original do ftp no arquivo baixado
-      FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+      //comparar tamanho original com baixado
+      if tamanho_arquivo = fMenu.DSiFileSize(Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip') then
+      begin
+        RenameFile(arquivo_local,Copy(arquivo_local,1,Length(arquivo_local)-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+        Descompacta(Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip');
+
+        //Aplica a data do arquivo original do ftp no arquivo baixado
+        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+      end;
     end;
+
 
     if CheckListBox1.Checked[2] then   //Cupom Fiscal
     begin
@@ -271,7 +280,7 @@ begin
     end;
 
     //15/01/2020
-    if CheckListBox1.Checked[10] then   //SSNFCe
+    if CheckListBox1.Checked[10] then  //Consulta CNPJ  
     begin
       Gauge1.ForeColor   := clYellow;
       Shape1.Brush.Color := clYellow;
@@ -284,6 +293,68 @@ begin
       begin
         RenameFile('ConsultaCNPJ.exe',Copy('ConsultaCNPJ.exe',1,Length('ConsultaCNPJ.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
         Descompacta('ConsultaCNPJ.zip');
+
+        //Aplica a data do arquivo original do ftp no arquivo baixado
+        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+      end;
+
+      vArq  := 'ConsultaCNPJ.dll';
+      vArq2 := 'ConsultaCNPJ_dll.' + FormatDateTime('YYYY-MM-DD_HH-NN',Now);
+
+      Gauge1.ForeColor   := clYellow;
+      Shape1.Brush.Color := clYellow;
+      Label3.Caption     := 'ConsultaCNPJ.dll';
+      CopyFile(pAnsiChar(vArq),pAnsiChar(vArq2),true);
+      ftpupdate.get('ConsultaCNPJ.dll','ConsultaCNPJ.dll',true);
+      tamanho_arquivo := ftpupdate.Size('ConsultaCNPJ.dll');
+
+      //comparar tamanho original com baixado
+      //if tamanho_arquivo = fMenu.DSiFileSize(Copy('ConsultaCNPJ.exe',1,Length('ConsultaCNPJ.exe')-4)+'.zip') then
+      begin
+        //RenameFile('ConsultaCNPJ.dll',Copy('ConsultaCNPJ.dll',1,Length('ConsultaCNPJ.dll')-4)+ '_dll.'+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+        RenameFile('ConsultaCNPJ.dll',Copy('ConsultaCNPJ.dll',1,Length('ConsultaCNPJ.dll')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+        //Descompacta('ConsultaCNPJ.zip');
+
+        //Aplica a data do arquivo original do ftp no arquivo baixado
+        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+      end;
+
+    end;
+
+    //18/05/2020
+    if CheckListBox1.Checked[11] then   //SSIntegradorPDV
+    begin
+      Gauge1.ForeColor   := clMaroon;
+      Shape1.Brush.Color := clMaroon;
+      Label3.Caption     := 'SSIntegradorPDV';
+      ftpupdate.get('SSIntegradorPDV.zip','SSIntegradorPDV.zip',true);
+      tamanho_arquivo := ftpupdate.Size('SSIntegradorPDV.zip');
+
+      //comparar tamanho original com baixado
+      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSIntegradorPDV.exe',1,Length('SSIntegradorPDV.exe')-4)+'.zip') then
+      begin
+        RenameFile('SSIntegradorPDV.exe',Copy('SSIntegradorPDV.exe',1,Length('SSIntegradorPDV.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+        Descompacta('SSIntegradorPDV.zip');
+
+        //Aplica a data do arquivo original do ftp no arquivo baixado
+        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+      end;
+    end;
+
+    //18/05/2020
+    if CheckListBox1.Checked[12] then   //SSIntegração Contábil
+    begin
+      Gauge1.ForeColor   := clPurple;
+      Shape1.Brush.Color := clPurple;
+      Label3.Caption     := 'SSIntegracao';
+      ftpupdate.get('SSIntegracao.zip','SSIntegracao.zip',true);
+      tamanho_arquivo := ftpupdate.Size('SSIntegracao.zip');
+
+      //comparar tamanho original com baixado
+      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSIntegracao.exe',1,Length('SSIntegracao.exe')-4)+'.zip') then
+      begin
+        RenameFile('SSIntegracao.exe',Copy('SSIntegracao.exe',1,Length('SSIntegracao.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+        Descompacta('SSIntegracao.zip');
 
         //Aplica a data do arquivo original do ftp no arquivo baixado
         FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
@@ -328,9 +399,11 @@ begin
       end;
     end;
 
+    Gauge1.Visible := False;
+
     Sleep(2000);
-    BitBtn2.SetFocus;
-    BitBtn2.Caption := 'Fechar';
+    btnCancelar.SetFocus;
+    btnCancelar.Caption := 'Fechar';
 
     Label3.Caption  := 'Todos os programas selecionados atualizados';
 
@@ -492,7 +565,7 @@ begin
   ServerIni.Free;
 end;
 
-procedure TfrmUpdate.BitBtn2Click(Sender: TObject);
+procedure TfrmUpdate.btnCancelarClick(Sender: TObject);
 begin
   Close;
 end;
@@ -517,7 +590,7 @@ begin
   ZipMaster1.Dll_Load := False;
 end;
 
-procedure TfrmUpdate.BitBtn1Click(Sender: TObject);
+procedure TfrmUpdate.btnBancoClick(Sender: TObject);
 begin
   Screen.Cursor := crHourGlass;
   //dmDatabase.prcAtualizaBanco;
