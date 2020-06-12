@@ -1,7 +1,7 @@
 object frmConfigEdit: TfrmConfigEdit
   Left = 192
   Top = 124
-  Width = 523
+  Width = 546
   Height = 468
   BorderIcons = [biSystemMenu]
   Caption = 'frmConfigEdit'
@@ -20,7 +20,7 @@ object frmConfigEdit: TfrmConfigEdit
   object s: TRzPageControl
     Left = 0
     Top = 0
-    Width = 515
+    Width = 538
     Height = 400
     ActivePage = TabSheet5
     ActivePageDefault = TabSheet1
@@ -232,13 +232,13 @@ object frmConfigEdit: TfrmConfigEdit
       Caption = 'NFe Config'
       object GroupBox5: TGroupBox
         Left = 8
-        Top = 16
-        Width = 459
-        Height = 121
+        Top = 18
+        Width = 505
+        Height = 153
         Caption = 'Banco de Dados'
         TabOrder = 0
         object Label26: TLabel
-          Left = 41
+          Left = 65
           Top = 24
           Width = 63
           Height = 13
@@ -246,7 +246,7 @@ object frmConfigEdit: TfrmConfigEdit
           Caption = 'Arquivo FDB:'
         end
         object Label27: TLabel
-          Left = 65
+          Left = 89
           Top = 72
           Width = 39
           Height = 13
@@ -254,7 +254,7 @@ object frmConfigEdit: TfrmConfigEdit
           Caption = 'Usu'#225'rio:'
         end
         object Label28: TLabel
-          Left = 70
+          Left = 94
           Top = 96
           Width = 34
           Height = 13
@@ -262,7 +262,7 @@ object frmConfigEdit: TfrmConfigEdit
           Caption = 'Senha:'
         end
         object Label22: TLabel
-          Left = 113
+          Left = 137
           Top = 40
           Width = 307
           Height = 13
@@ -274,16 +274,24 @@ object frmConfigEdit: TfrmConfigEdit
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object Label36: TLabel
+          Left = 12
+          Top = 126
+          Width = 115
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Pasta do NFeConfig.exe'
+        end
         object Edit22: TEdit
-          Left = 112
-          Top = 16
+          Left = 136
+          Top = 17
           Width = 329
           Height = 21
           TabOrder = 0
           Text = 'NFeDB.fdb'
         end
         object Edit23: TEdit
-          Left = 112
+          Left = 136
           Top = 64
           Width = 145
           Height = 21
@@ -291,13 +299,21 @@ object frmConfigEdit: TfrmConfigEdit
           Text = 'SYSDBA'
         end
         object Edit24: TEdit
-          Left = 112
+          Left = 136
           Top = 88
           Width = 145
           Height = 21
           PasswordChar = '*'
           TabOrder = 2
           Text = 'masterkey'
+        end
+        object EdtLocalExeNFeconfig: TEdit
+          Left = 135
+          Top = 119
+          Width = 329
+          Height = 21
+          TabOrder = 3
+          Text = 'C:\$Servisoft\NFeConfig'
         end
       end
     end
@@ -492,7 +508,7 @@ object frmConfigEdit: TfrmConfigEdit
         object Label33: TLabel
           Left = 1
           Top = 1
-          Width = 509
+          Width = 124
           Height = 22
           Align = alTop
           Alignment = taCenter
@@ -641,7 +657,7 @@ object frmConfigEdit: TfrmConfigEdit
   object Panel1: TPanel
     Left = 0
     Top = 400
-    Width = 515
+    Width = 538
     Height = 37
     Align = alBottom
     TabOrder = 1

@@ -79,7 +79,7 @@ end;
 
 procedure TfMenu.Timer1Timer(Sender: TObject);
 begin
-  ToolButton3Click(Sender);
+//  ToolButton3Click(Sender);
 end;
 
 end.

@@ -1,8 +1,8 @@
 object frmUpdate: TfrmUpdate
-  Left = 387
-  Top = 121
-  Width = 525
-  Height = 468
+  Left = 320
+  Top = 108
+  Width = 813
+  Height = 545
   Caption = 'Atualiza'#231#227'o do Sistema e da Base de Dados'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,16 +19,16 @@ object frmUpdate: TfrmUpdate
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 517
+    Width = 805
     Height = 62
     Align = alTop
-    Color = clWhite
+    Color = 16753994
     TabOrder = 1
     object Label2: TLabel
-      Left = 63
-      Top = 20
-      Width = 363
-      Height = 40
+      Left = 103
+      Top = 15
+      Width = 447
+      Height = 36
       Alignment = taCenter
       Caption = 
         'O programa ir'#225' atualizar os softwares selecionados abaixo. '#13#10'A v' +
@@ -36,18 +36,18 @@ object frmUpdate: TfrmUpdate
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
-      Font.Name = 'Segoe UI Light'
+      Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
     end
     object Label1: TLabel
       Left = 1
       Top = 1
-      Width = 515
+      Width = 803
       Height = 13
       Align = alTop
       Alignment = taRightJustify
-      Caption = 'Vers'#227'o 18/05/2020     '
+      Caption = 'Vers'#227'o 11/06/2020     '
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -58,8 +58,8 @@ object frmUpdate: TfrmUpdate
   end
   object Panel2: TPanel
     Left = 0
-    Top = 374
-    Width = 517
+    Top = 451
+    Width = 805
     Height = 63
     Align = alBottom
     Color = 16753994
@@ -69,7 +69,7 @@ object frmUpdate: TfrmUpdate
     object StatusBar1: TStatusBar
       Left = 1
       Top = 43
-      Width = 515
+      Width = 803
       Height = 19
       Panels = <
         item
@@ -83,7 +83,7 @@ object frmUpdate: TfrmUpdate
         end>
     end
     object btnAtualizar: TNxButton
-      Left = 65
+      Left = 217
       Top = 8
       Width = 126
       Height = 27
@@ -100,7 +100,7 @@ object frmUpdate: TfrmUpdate
       OnClick = btnAtualizarClick
     end
     object btnCancelar: TNxButton
-      Left = 189
+      Left = 341
       Top = 8
       Width = 126
       Height = 27
@@ -117,7 +117,7 @@ object frmUpdate: TfrmUpdate
       OnClick = btnCancelarClick
     end
     object btnBanco: TNxButton
-      Left = 313
+      Left = 465
       Top = 8
       Width = 126
       Height = 27
@@ -137,44 +137,55 @@ object frmUpdate: TfrmUpdate
   object Panel3: TPanel
     Left = 0
     Top = 62
-    Width = 517
-    Height = 158
+    Width = 805
+    Height = 235
     Align = alClient
     TabOrder = 2
     object CheckListBox1: TCheckListBox
-      Left = 8
-      Top = 16
-      Width = 465
-      Height = 135
+      Left = 1
+      Top = 1
+      Width = 803
+      Height = 233
+      Align = alClient
+      BevelKind = bkSoft
+      BorderStyle = bsNone
       Columns = 2
+      Ctl3D = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
+      Font.Height = -16
       Font.Name = 'Verdana'
       Font.Style = []
       ItemHeight = 18
       Items.Strings = (
-        'SSF'#225'cil'
-        'SSPar'#226'metros'
+        'SSF'#225'cil '
+        'SSPar'#226'metros '
         'SSCupomFiscal'
-        'SSF'#225'cil_OS'
-        'SSF'#225'cil_Prod'
-        'SSF'#225'cil_MDFE'
-        'SSUtilit'#225'rios'
-        'BackUp'
-        'BuscaIBPT'
-        'SSNFCe'
-        'ConsultaCNPJ'
-        'SSIntegradorPDV'
-        'SSIntegra'#231#227'o Cont'#225'bil')
+        'SSF'#225'cil_OS  '
+        'SSF'#225'cil_Prod '
+        'SSF'#225'cil_MDFE '
+        'SSUtilit'#225'rios  '
+        'BackUp  '
+        'BuscaIBPT '
+        'SSNFCe  '
+        'ConsultaCNPJ '
+        'DLL Consulta CNPJ '
+        'SSIntegradorPDV  '
+        'SSIntegra'#231#227'o Cont'#225'bil'
+        'Impress'#227'o Cozinha/Copa '
+        'DLL Manifesto '
+        'xtr SSFacil '
+        'xtr NFeConfig '
+        'NFeConfig ')
+      ParentCtl3D = False
       ParentFont = False
       TabOrder = 0
     end
   end
   object Panel4: TPanel
     Left = 0
-    Top = 220
-    Width = 517
+    Top = 297
+    Width = 805
     Height = 154
     Align = alBottom
     Color = clBtnShadow
@@ -182,7 +193,7 @@ object frmUpdate: TfrmUpdate
     object Gauge1: TGauge
       Left = 18
       Top = 5
-      Width = 451
+      Width = 658
       Height = 19
       Color = clBlack
       Font.Charset = DEFAULT_CHARSET
@@ -217,7 +228,7 @@ object frmUpdate: TfrmUpdate
     object lblVersaoNFEBD: TLabel
       Left = 1
       Top = 133
-      Width = 515
+      Width = 803
       Height = 20
       Align = alBottom
       Alignment = taCenter
@@ -231,8 +242,8 @@ object frmUpdate: TfrmUpdate
       Visible = False
     end
     object gbxVendedor: TRzGroupBox
-      Left = 89
-      Top = 61
+      Left = 239
+      Top = 64
       Width = 324
       Height = 58
       BorderColor = clNavy

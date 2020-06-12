@@ -89,6 +89,8 @@ type
     Label34: TLabel;
     Label35: TLabel;
     RzDateTimeEdit1: TRzDateTimeEdit;
+    Label36: TLabel;
+    EdtLocalExeNFeconfig: TEdit;
     procedure BitBtn2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -134,6 +136,7 @@ begin
     Edit22.Text := lerIni('NFeConfig','database');
   Edit23.Text := lerIni('NFeConfig','username');
   Edit24.Text := Decoder64.DecodeString(lerIni('NFeConfig','password'));
+  EdtLocalExeNFeconfig.Text := lerIni('NFeConfig','LocalExe');
 
   //Carrega parâmetros log
   Edit6.Text := lerIni('bando de dados','database');
@@ -189,6 +192,7 @@ begin
   gravarIni('NFeConfig','database',Edit22.Text);
   gravarIni('NFeConfig','username',Edit23.Text);
   gravarIni('NFeConfig','password',Encoder64.EncodeString(Edit24.Text));
+  gravarIni('NFeConfig','LocalExe',EdtLocalExeNFeconfig.Text);
 
   gravarIni('Bando de dados','database',Edit6.Text);
   gravarIni('Bando de dados','username',Edit5.Text);

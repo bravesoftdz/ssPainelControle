@@ -55,12 +55,15 @@ type
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
-//    bytes_transf: longword;
     arquivo_local, arquivo_servidor: String;
+    vPastaNFeConfig : String;
+
     procedure Descompacta(vArquivo: String);
     function lerIni(tabela_ini, campo_ini: string): string;
 
     procedure prc_Atualiza_Banco_Local;
+
+    procedure prc_Baixar_Programa(NomePrograma : String ; ContCor : Integer);
 
   public
     { Public declarations }
@@ -71,11 +74,19 @@ var
 
 implementation
 
-uses uMenu, uDmDatabase, DmdDatabase_NFeBD;
+uses uMenu, uDmDatabase, DmdDatabase_NFeBD, StrUtils;
 
 {$R *.dfm}
 
 { threadFTP }
+
+const
+  vPrograma : array [0..18] of String  = ('SSFacil.zip','SSFacil_Parametros.zip','ssCupomFiscal.zip','SSFacil_OS.zip','SSFacil_Prod.zip','SSFacil_MDFe.zip',
+                                          'SSUtilitarios.zip','ssBackUp_Solo.zip','BuscaIBPT.zip','SSNFCe.zip','ConsultaCNPJ.zip','ConsultaCNPJ_DLL.zip',
+                                          'SSIntegradorPDV.zip','SSIntegracao.zip','ImpressaoCozinha.zip','ManifestoNFe.zip','xtrSSFacil.zip',
+                                          'xtrNFeConfig.zip','NFeConfig.zip');
+
+  vCor  : array [1..3] of TColor = ($00804000,$004080FF,$0080FF80);
 
 procedure threadFTP.conectarFtp;
 begin
@@ -84,6 +95,8 @@ end;
 procedure threadFTP.Execute;
 var
   vArq, vArq2 : String;
+  i : Integer;
+  iCor : Integer;
 begin
   with frmUpdate do
   begin
@@ -103,10 +116,24 @@ begin
     ftpupdate.list(nil);
     tamanho_arquivo := ftpupdate.Size(lerini('FTPUpdate','ArquivoZip'));
 
-  //salvar arquivo original como new
-  //ftpupdate.get(lerini('FTPUpdate','Arquivo'),Copy(arquivo_local,1,Length(arquivo_local)-4)+'.new',true);
+    //11/06/2020
+    iCor := 0;
+    for i := 0 To CheckListBox1.Count - 1 do
+    begin
+      if CheckListBox1.Checked[i] then
+      begin
+        Label3.Caption := CheckListBox1.Items.Strings[i];
+        iCor := iCor + 1;
+        if iCor > 3 then
+          iCor := 1;
+        prc_Baixar_Programa(vPrograma[i],iCor);
+      end;
+    end;
+    prc_Baixar_Programa('ssPainelControle.zip',1);
 
-    if CheckListBox1.Checked[0] then   //SSFacil
+    //********************
+
+    {if CheckListBox1.Checked[0] then   //SSFacil
     begin
       Gauge1.ForeColor   := $00804000;
       Shape1.Brush.Color := $00804000;
@@ -123,7 +150,6 @@ begin
         FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
       end;
     end;
-
 
     if CheckListBox1.Checked[2] then   //Cupom Fiscal
     begin
@@ -397,7 +423,7 @@ begin
         //Aplica a data do arquivo original do ftp no arquivo baixado
         FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
       end;
-    end;
+    end;}
 
     Gauge1.Visible := False;
 
@@ -449,6 +475,8 @@ begin
     ftpupdate.Passive := true
   else
     ftpupdate.Passive := false;
+
+  vPastaNFeConfig := lerini('NFeConfig','LocalExe');
 
   ftpupdate.Connect(true);
 
@@ -583,8 +611,11 @@ begin
     end;
     FSpecArgs.Add('*.*');
     ExtrBaseDir := GetCurrentDir;
-    ExtrOptions := ExtrOptions + [ExtrOverwrite];
+    ExtrOptions := ExtrOptions + [ExtrOverwrite] + [ExtrDirNames];
     Extract;
+    //(ExtrDirNames, ExtrOverWrite, ExtrFreshen, ExtrUpdate,
+    //ExtrTest, ExtrForceDirs, ExtrNTFS);
+
 //    ShowMessage('Arquivos extraídos = ' + IntToStr(SuccessCnt) + '!');
   end;
   ZipMaster1.Dll_Load := False;
@@ -726,6 +757,55 @@ begin
   dmDatabase.scoDados.Connected := False;
   dmDatabase.sqVersaoAtual.Close;
   dmDatabase.scoAtualiza.Connected := False;
+end;
+
+procedure TfrmUpdate.prc_Baixar_Programa(NomePrograma : String ; ContCor : Integer);
+var
+  i: Integer;
+  vNomeAux : String;
+  vXtr : Boolean;
+begin
+  //Gauge1.ForeColor   := $004080FF;
+  //Shape1.Brush.Color := $004080FF;
+  Gauge1.ForeColor   := vCor[ContCor];
+  Shape1.Brush.Color := vCor[ContCor]; 
+
+  i := Pos('.',NomePrograma);
+  vNomeAux := copy(NomePrograma,1,i-1);
+  vXtr := (Posex('xtr',vNomeAux) > 0);
+
+  if Posex('NFeConfig',vNomeAux) > 0 then
+  begin
+    if not DirectoryExists(vPastaNFeConfig) then
+    begin
+      MessageDlg('Não foi configurado ou encontrado a pasta do NFeConfig!',mtInformation,[mbOk],0);
+      exit;
+    end;
+
+  end;
+
+  try
+    ftpupdate.get(NomePrograma,NomePrograma,true);
+    tamanho_arquivo := ftpupdate.Size(NomePrograma);
+    //comparar tamanho original com baixado
+    //if tamanho_arquivo = fMenu.DSiFileSize(Copy(vNomeAux + '.exe',1,Length(vNomeAux + '.exe')-4)+'.zip') then
+    begin
+      if vXtr then
+        RenameFile('xtr','xtr' + '_' + FormatDateTime('YYYY-MM-DD_HH-NN',Now))
+      else
+        RenameFile(vNomeAux + '.exe',Copy(vNomeAux + '.exe',1,Length(vNomeAux + '.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+      Descompacta(NomePrograma);
+      //Aplica a data do arquivo original do ftp no arquivo baixado
+      FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+    end;
+  except
+    on E: exception do
+    begin
+      ShowMessage('Erro: ' + E.Message + #13 + #13 +
+                  'Erro ao atualizar ** ' + NomePrograma + ' ** ');
+    end;
+  end;
+
 end;
 
 end.
