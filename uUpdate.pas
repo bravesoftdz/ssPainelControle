@@ -58,7 +58,7 @@ type
     arquivo_local, arquivo_servidor: String;
     vPastaNFeConfig : String;
 
-    procedure Descompacta(vArquivo: String);
+    procedure Descompacta(vArquivo,Pasta: String);
     function lerIni(tabela_ini, campo_ini: string): string;
 
     procedure prc_Atualiza_Banco_Local;
@@ -131,300 +131,6 @@ begin
     end;
     prc_Baixar_Programa('ssPainelControle.zip',1);
 
-    //********************
-
-    {if CheckListBox1.Checked[0] then   //SSFacil
-    begin
-      Gauge1.ForeColor   := $00804000;
-      Shape1.Brush.Color := $00804000;
-      Label3.Caption     := 'SSFácil';
-      ftpupdate.get(lerini('FTPUpdate','ArquivoZip'),Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip',true);
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip') then
-      begin
-        RenameFile(arquivo_local,Copy(arquivo_local,1,Length(arquivo_local)-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta(Copy(arquivo_local,1,Length(arquivo_local)-4)+'.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[2] then   //Cupom Fiscal
-    begin
-      Gauge1.ForeColor   := $004080FF;
-      Shape1.Brush.Color := $004080FF;
-      Label3.Caption     := 'Cupom Fiscal';
-      ftpupdate.get('ssCupomFiscal.zip','ssCupomFiscal.zip',true);
-      tamanho_arquivo := ftpupdate.Size('ssCupomFiscal.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('ssCupomFiscal.exe',1,Length('ssCupomFiscal.exe')-4)+'.zip') then
-      begin
-        RenameFile('ssCupomFiscal.exe',Copy('ssCupomFiscal.exe',1,Length('ssCupomFiscal.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('ssCupomFiscal.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[1] then  //Parâmetros
-    begin
-      Gauge1.ForeColor   := $0080FF80;
-      Shape1.Brush.Color := $0080FF80;
-      Label3.Caption     := 'Parâmetros';
-      ftpupdate.get('SSFacil_Parametros.zip','SSFacil_Parametros.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSFacil_Parametros.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSFacil_Parametros.exe',1,Length('SSFacil_Parametros.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSFacil_Parametros.exe',Copy('SSFacil_Parametros.exe',1,Length('SSFacil_Parametros.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSFacil_Parametros.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[4] then   //Produção
-    begin
-      Gauge1.ForeColor   := $00FF80FF;
-      Shape1.Brush.Color := $00FF80FF;
-      Label3.Caption     := 'Produção';
-      ftpupdate.get('SSFacil_Prod.zip','SSFacil_Prod.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSFacil_Prod.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSFacil_Prod.exe',1,Length('SSFacil_Prod.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSFacil_Prod.exe',Copy('SSFacil_Prod.exe',1,Length('SSFacil_Prod.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSFacil_Prod.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[3] then   //OS
-    begin
-      Gauge1.ForeColor   := $00FFFF80;
-      Shape1.Brush.Color := $00FFFF80;
-      Label3.Caption     := 'Ordem Serviço';
-      ftpupdate.get('SSFacil_OS.zip','SSFacil_OS.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSFacil_OS.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSFacil_OS.exe',1,Length('SSFacil_OS.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSFacil_OS.exe',Copy('SSFacil_OS.exe',1,Length('SSFacil_OS.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSFacil_OS.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[6] then   //Utilitários
-    begin
-      Gauge1.ForeColor   := $00804000;
-      Shape1.Brush.Color := $00804000;
-      Label3.Caption     := 'Utilitários';
-      ftpupdate.get('SSUtilitarios.zip','SSUtilitarios.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSUtilitarios.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSUtilitarios.exe',1,Length('SSUtilitarios.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSUtilitarios.exe',Copy('SSUtilitarios.exe',1,Length('SSUtilitarios.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSUtilitarios.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[7] then   //ssBackUp_Solo
-    begin
-      Gauge1.ForeColor   := clFuchsia;
-      Shape1.Brush.Color := clFuchsia;
-      Label3.Caption     := 'ssBackUp_Solo';
-      ftpupdate.get('ssBackUp_Solo.zip','ssBackUp_Solo.zip',true);
-      tamanho_arquivo := ftpupdate.Size('ssBackUp_Solo.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('ssBackUp_Solo.exe',1,Length('ssBackUp_Solo.exe')-4)+'.zip') then
-      begin
-        RenameFile('ssBackUp_Solo.exe',Copy('ssBackUp_Solo.exe',1,Length('ssBackUp_Solo.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('ssBackUp_Solo.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    //10/01/2020
-    if CheckListBox1.Checked[8] then   //BuscaIBPT
-    begin
-      Gauge1.ForeColor   := clYellow;
-      Shape1.Brush.Color := clYellow;
-      Label3.Caption     := 'BuscaIBPT';
-      ftpupdate.get('BuscaIBPT.zip','BuscaIBPT.zip',true);
-      tamanho_arquivo := ftpupdate.Size('BuscaIBPT.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('BuscaIBPT.exe',1,Length('BuscaIBPT.exe')-4)+'.zip') then
-      begin
-        RenameFile('BuscaIBPT.exe',Copy('BuscaIBPT.exe',1,Length('BuscaIBPT.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('BuscaIBPT.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    //10/01/2020
-    if CheckListBox1.Checked[9] then   //SSNFCe
-    begin
-      Gauge1.ForeColor   := clYellow;
-      Shape1.Brush.Color := clYellow;
-      Label3.Caption     := 'SSNFCe';
-      ftpupdate.get('SSNFCe.zip','SSNFCe.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSNFCe.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSNFCe.exe',1,Length('SSNFCe.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSNFCe.exe',Copy('SSNFCe.exe',1,Length('SSNFCe.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSNFCe.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    //15/01/2020
-    if CheckListBox1.Checked[10] then  //Consulta CNPJ  
-    begin
-      Gauge1.ForeColor   := clYellow;
-      Shape1.Brush.Color := clYellow;
-      Label3.Caption     := 'ConsultaCNPJ.zip';
-      ftpupdate.get('ConsultaCNPJ.zip','ConsultaCNPJ.zip',true);
-      tamanho_arquivo := ftpupdate.Size('ConsultaCNPJ.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('ConsultaCNPJ.exe',1,Length('ConsultaCNPJ.exe')-4)+'.zip') then
-      begin
-        RenameFile('ConsultaCNPJ.exe',Copy('ConsultaCNPJ.exe',1,Length('ConsultaCNPJ.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('ConsultaCNPJ.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-
-      vArq  := 'ConsultaCNPJ.dll';
-      vArq2 := 'ConsultaCNPJ_dll.' + FormatDateTime('YYYY-MM-DD_HH-NN',Now);
-
-      Gauge1.ForeColor   := clYellow;
-      Shape1.Brush.Color := clYellow;
-      Label3.Caption     := 'ConsultaCNPJ.dll';
-      CopyFile(pAnsiChar(vArq),pAnsiChar(vArq2),true);
-      ftpupdate.get('ConsultaCNPJ.dll','ConsultaCNPJ.dll',true);
-      tamanho_arquivo := ftpupdate.Size('ConsultaCNPJ.dll');
-
-      //comparar tamanho original com baixado
-      //if tamanho_arquivo = fMenu.DSiFileSize(Copy('ConsultaCNPJ.exe',1,Length('ConsultaCNPJ.exe')-4)+'.zip') then
-      begin
-        //RenameFile('ConsultaCNPJ.dll',Copy('ConsultaCNPJ.dll',1,Length('ConsultaCNPJ.dll')-4)+ '_dll.'+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        RenameFile('ConsultaCNPJ.dll',Copy('ConsultaCNPJ.dll',1,Length('ConsultaCNPJ.dll')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        //Descompacta('ConsultaCNPJ.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-
-    end;
-
-    //18/05/2020
-    if CheckListBox1.Checked[11] then   //SSIntegradorPDV
-    begin
-      Gauge1.ForeColor   := clMaroon;
-      Shape1.Brush.Color := clMaroon;
-      Label3.Caption     := 'SSIntegradorPDV';
-      ftpupdate.get('SSIntegradorPDV.zip','SSIntegradorPDV.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSIntegradorPDV.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSIntegradorPDV.exe',1,Length('SSIntegradorPDV.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSIntegradorPDV.exe',Copy('SSIntegradorPDV.exe',1,Length('SSIntegradorPDV.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSIntegradorPDV.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    //18/05/2020
-    if CheckListBox1.Checked[12] then   //SSIntegração Contábil
-    begin
-      Gauge1.ForeColor   := clPurple;
-      Shape1.Brush.Color := clPurple;
-      Label3.Caption     := 'SSIntegracao';
-      ftpupdate.get('SSIntegracao.zip','SSIntegracao.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSIntegracao.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSIntegracao.exe',1,Length('SSIntegracao.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSIntegracao.exe',Copy('SSIntegracao.exe',1,Length('SSIntegracao.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSIntegracao.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if CheckListBox1.Checked[5] then   //MDFe
-    begin
-      Gauge1.ForeColor   := $00FF80FF;
-      Shape1.Brush.Color := $00FF80FF;
-      Label3.Caption     := 'Manifestos';
-      ftpupdate.get('SSFacil_MDFe.zip','SSFacil_MDFe.zip',true);
-      tamanho_arquivo := ftpupdate.Size('SSFacil_MDFe.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('SSFacil_MDFe.exe',1,Length('SSFacil_MDFe.exe')-4)+'.zip') then
-      begin
-        RenameFile('SSFacil_MDFe.exe',Copy('SSFacil_MDFe.exe',1,Length('SSFacil_MDFe.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('SSFacil_MDFe.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;
-
-    if 1 = 1 then   //Painel de Controle
-    begin
-      Gauge1.ForeColor   := clGreen;
-      Shape1.Brush.Color := clGreen;
-      Label3.Caption     := 'Painel de Controle';
-      ftpupdate.get('ssPainelControle.zip','ssPainelControle.zip',true);
-      tamanho_arquivo := ftpupdate.Size('ssPainelControle.zip');
-
-      //comparar tamanho original com baixado
-      if tamanho_arquivo = fMenu.DSiFileSize(Copy('ssPainelControle.exe',1,Length('ssPainelControle.exe')-4)+'.zip') then
-      begin
-        RenameFile('ssPainelControle.exe',Copy('ssPainelControle.exe',1,Length('ssPainelControle.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-        Descompacta('ssPainelControle.zip');
-
-        //Aplica a data do arquivo original do ftp no arquivo baixado
-        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
-      end;
-    end;}
-
     Gauge1.Visible := False;
 
     Sleep(2000);
@@ -433,34 +139,8 @@ begin
 
     Label3.Caption  := 'Todos os programas selecionados atualizados';
 
-
-//    ShowMessage('Concluído!');
     ftpupdate.Disconnect;
   end;
-
-  //Estrutura para conexão
-{
-  IdFTP1.Disconnect();
-
-  IdFTP1.Host := 'ftp.abc71.com.br';
-  IdFTP1.Port := 21;
-  IdFTP1.Username := 'usuario_para_login';
-  IdFTP1.Password := 'senha';
-  IdFTP1.Passive := false; // usa modo ativo
-  IdFTP1.RecvBufferSize := 8192;
-  try
-  // Espera até 10 segundos pela conexão
-  IdFTP1.Connect(true, 10000);
-  except
-  on E: Exception do
-  _Erro = E.Message;
-  end;
-}
-//Comando para enviar
-  //IdFTP1.Put (AFileName, ADstFileName, false);
-
-//Comando para receber
-  //IdFTP1.Get (AFileName, ADstFileName, true, false);
 end;
 
 procedure TfrmUpdate.btnAtualizarClick(Sender: TObject);
@@ -477,6 +157,8 @@ begin
     ftpupdate.Passive := false;
 
   vPastaNFeConfig := lerini('NFeConfig','LocalExe');
+  if copy(vPastaNFeConfig,Length(vPastaNFeConfig),1) <> '\' then
+    vPastaNFeConfig := vPastaNFeConfig + '\';
 
   ftpupdate.Connect(true);
 
@@ -598,19 +280,33 @@ begin
   Close;
 end;
 
-procedure TfrmUpdate.Descompacta(vArquivo: String);
+procedure TfrmUpdate.Descompacta(vArquivo, Pasta: String);
 begin
   ZipMaster1.Dll_Load := True;
   with ZipMaster1 do
-  begin
-    ZipFileName := vArquivo;
+  begin                    //mudar pasta  aqui 15/06/2020
+    if trim(Pasta) <> '' then
+    begin
+      //ExtrBaseDir := Pasta
+      ExtrBaseDir := Pasta;
+      ZipFileName := Pasta + vArquivo;
+    end
+    else
+    begin
+      ExtrBaseDir := GetCurrentDir;
+      ZipFileName := vArquivo;
+    end;
+
     if Count = 0 then
     begin
       ShowMessage('Error - nenhum arquivo no Zip!');
       Exit;
     end;
     FSpecArgs.Add('*.*');
-    ExtrBaseDir := GetCurrentDir;
+    {if trim(Pasta) <> '' then
+      ExtrBaseDir := Pasta
+    else
+      ExtrBaseDir := GetCurrentDir;}
     ExtrOptions := ExtrOptions + [ExtrOverwrite] + [ExtrDirNames];
     Extract;
     //(ExtrDirNames, ExtrOverWrite, ExtrFreshen, ExtrUpdate,
@@ -764,12 +460,16 @@ var
   i: Integer;
   vNomeAux : String;
   vXtr : Boolean;
+  vArqLocalAux : String;
+  x : String;
+  vPastaAux : String;
 begin
   //Gauge1.ForeColor   := $004080FF;
   //Shape1.Brush.Color := $004080FF;
   Gauge1.ForeColor   := vCor[ContCor];
-  Shape1.Brush.Color := vCor[ContCor]; 
+  Shape1.Brush.Color := vCor[ContCor];
 
+  vPastaAux := '';
   i := Pos('.',NomePrograma);
   vNomeAux := copy(NomePrograma,1,i-1);
   vXtr := (Posex('xtr',vNomeAux) > 0);
@@ -781,22 +481,29 @@ begin
       MessageDlg('Não foi configurado ou encontrado a pasta do NFeConfig!',mtInformation,[mbOk],0);
       exit;
     end;
-
+    vPastaAux := vPastaNFeConfig;
   end;
 
   try
-    ftpupdate.get(NomePrograma,NomePrograma,true);
+    //if Posex('NFeConfig',vNomeAux) > 0 then
+      ftpupdate.get(NomePrograma,vPastaAux + NomePrograma,true);
+    //else
+     // ftpupdate.get(NomePrograma,NomePrograma,true);
     tamanho_arquivo := ftpupdate.Size(NomePrograma);
     //comparar tamanho original com baixado
     //if tamanho_arquivo = fMenu.DSiFileSize(Copy(vNomeAux + '.exe',1,Length(vNomeAux + '.exe')-4)+'.zip') then
     begin
       if vXtr then
-        RenameFile('xtr','xtr' + '_' + FormatDateTime('YYYY-MM-DD_HH-NN',Now))
+        Renamefile(vPastaAux + 'xtr',vPastaAux + 'xtr' + '_' + FormatDateTime('YYYY-MM-DD_HH-NN',Now))
       else
-        RenameFile(vNomeAux + '.exe',Copy(vNomeAux + '.exe',1,Length(vNomeAux + '.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
-      Descompacta(NomePrograma);
+        RenameFile(vPastaAux + vNomeAux + '.exe',vPastaAux + Copy(vNomeAux + '.exe',1,Length(vNomeAux + '.exe')-3)+ FormatDateTime('YYYY-MM-DD_HH-NN',Now));
+      Descompacta(NomePrograma,vPastaAux);
       //Aplica a data do arquivo original do ftp no arquivo baixado
-      FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
+
+      if Posex('NFeConfig',vNomeAux) > 0 then
+        FileSetDate(vPastaNFeConfig,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate))
+      else
+        FileSetDate(arquivo_local,DateTimeToFileDate(ftpupdate.DirectoryListing.Items[0].ModifiedDate));
     end;
   except
     on E: exception do

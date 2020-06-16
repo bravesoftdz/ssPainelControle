@@ -47,7 +47,7 @@ object frmUpdate: TfrmUpdate
       Height = 13
       Align = alTop
       Alignment = taRightJustify
-      Caption = 'Vers'#227'o 11/06/2020     '
+      Caption = 'Vers'#227'o 15/06/2020     '
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
