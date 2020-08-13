@@ -47,7 +47,7 @@ object frmUpdate: TfrmUpdate
       Height = 13
       Align = alTop
       Alignment = taRightJustify
-      Caption = 'Vers'#227'o 28/07/2020'
+      Caption = 'Vers'#227'o 13/08/2020'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -178,7 +178,8 @@ object frmUpdate: TfrmUpdate
         'xtr NFeConfig '
         'NFeConfig '
         'AppPedido'
-        'Servi'#231'o F'#225'cil (ACBr)')
+        'Servi'#231'o F'#225'cil (ACBr)'
+        'Gaveta (SSNFCe)')
       ParentCtl3D = False
       ParentFont = False
       TabOrder = 0

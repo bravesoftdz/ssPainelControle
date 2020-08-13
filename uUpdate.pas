@@ -81,10 +81,10 @@ uses uMenu, uDmDatabase, DmdDatabase_NFeBD, StrUtils;
 { threadFTP }
 
 const
-  vPrograma : array [0..20] of String  = ('SSFacil.zip','SSFacil_Parametros.zip','ssCupomFiscal.zip','SSFacil_OS.zip','SSFacil_Prod.zip','SSFacil_MDFe.zip',
+  vPrograma : array [0..21] of String  = ('SSFacil.zip','SSFacil_Parametros.zip','ssCupomFiscal.zip','SSFacil_OS.zip','SSFacil_Prod.zip','SSFacil_MDFe.zip',
                                           'SSUtilitarios.zip','ssBackUp_Solo.zip','BuscaIBPT.zip','SSNFCe.zip','ConsultaCNPJ.zip','ConsultaCNPJ_DLL.zip',
                                           'SSIntegradorPDV.zip','SSIntegracao.zip','ImpressaoCozinha.zip','ManifestoNFe.zip','xtrSSFacil.zip',
-                                          'xtrNFeConfig.zip','NFeConfig.zip','AppPedido.zip','ServicoFacil.zip');
+                                          'xtrNFeConfig.zip','NFeConfig.zip','AppPedido.zip','ServicoFacil.zip','Gaveta.zip');
 
   vCor  : array [1..3] of TColor = ($00804000,$004080FF,$0080FF80);
 
