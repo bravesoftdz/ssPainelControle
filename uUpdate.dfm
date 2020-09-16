@@ -10,9 +10,11 @@ object frmUpdate: TfrmUpdate
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -47,7 +49,7 @@ object frmUpdate: TfrmUpdate
       Height = 13
       Align = alTop
       Alignment = taRightJustify
-      Caption = 'Vers'#227'o 13/08/2020'
+      Caption = 'Vers'#227'o 16/09/2020'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -247,7 +249,7 @@ object frmUpdate: TfrmUpdate
     object gbxVendedor: TRzGroupBox
       Left = 239
       Top = 64
-      Width = 324
+      Width = 333
       Height = 58
       BorderColor = clNavy
       BorderInner = fsButtonUp
@@ -279,24 +281,12 @@ object frmUpdate: TfrmUpdate
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object lblVersaoLocal: TLabel
-        Left = 264
-        Top = 16
-        Width = 45
-        Height = 16
-        Caption = '00000'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
       object lblVersaoAtualizacao: TLabel
-        Left = 264
+        Left = 271
         Top = 34
         Width = 45
         Height = 16
+        Alignment = taRightJustify
         Caption = '00000'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -318,6 +308,35 @@ object frmUpdate: TfrmUpdate
         Font.Style = [fsBold]
         ParentFont = False
       end
+    end
+    object ceVersaoLocal: TCurrencyEdit
+      Left = 502
+      Top = 77
+      Width = 54
+      Height = 21
+      AutoSize = False
+      Color = clBtnShadow
+      Ctl3D = False
+      DecimalPlaces = 0
+      DisplayFormat = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentCtl3D = False
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object btnScriptAvulso: TNxButton
+      Left = 442
+      Top = 35
+      Width = 133
+      Caption = 'Rodar Script Avulso'
+      TabOrder = 2
+      Visible = False
+      OnClick = btnScriptAvulsoClick
     end
   end
   object ftpUpdate: TIdFTP

@@ -1,0 +1,76 @@
+object frmScriptAvulso: TfrmScriptAvulso
+  Left = 238
+  Top = 122
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'frmScriptAvulso'
+  ClientHeight = 368
+  ClientWidth = 920
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object NxLabel1: TNxLabel
+    Left = 34
+    Top = 22
+    Width = 53
+    Height = 18
+    Caption = 'Script:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+    HorizontalPosition = hpLeft
+    InnerHorizontal = True
+    InnerVertical = False
+    InnerMargins.Horizontal = 0
+    InnerMargins.Vertical = 2
+    VerticalPosition = vpTop
+  end
+  object Memo1: TMemo
+    Left = 89
+    Top = 10
+    Width = 732
+    Height = 320
+    ScrollBars = ssVertical
+    TabOrder = 0
+  end
+  object NxButton1: TNxButton
+    Left = 152
+    Top = 339
+    Width = 115
+    Caption = 'Confirmar'
+    Down = True
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    OnClick = NxButton1Click
+  end
+  object NxButton2: TNxButton
+    Left = 268
+    Top = 339
+    Width = 115
+    Caption = 'Fechar'
+    Down = True
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -13
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    OnClick = NxButton2Click
+  end
+end

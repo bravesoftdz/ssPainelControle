@@ -8,7 +8,8 @@ uses
   uFrmSobre in 'uFrmSobre.pas' {frmSobre},
   uConfigEdit in 'uConfigEdit.pas' {frmConfigEdit},
   uDmDatabase in 'uDmDatabase.pas' {dmDatabase: TDataModule},
-  DmdDatabase_NFeBD in 'DmdDatabase_NFeBD.pas' {dmDatabase_NFeBD: TDataModule};
+  DmdDatabase_NFeBD in 'DmdDatabase_NFeBD.pas' {dmDatabase_NFeBD: TDataModule},
+  UScriptAvulso in 'UScriptAvulso.pas' {frmScriptAvulso};
 
 {$R *.res}
 

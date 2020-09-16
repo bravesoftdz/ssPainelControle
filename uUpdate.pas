@@ -9,7 +9,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, ComCtrls, StdCtrls,
   Buttons, IniFiles, Gauges, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdFTP, IdCoder, IdCoder3to4,
-  IdCoderMIME, ZipMstr, CheckLst, DBXpress, SqlExpr, RzPanel, NxCollection;
+  IdCoderMIME, ZipMstr, CheckLst, DBXpress, SqlExpr, RzPanel, NxCollection,
+  Mask, ToolEdit, CurrEdit;
 
 type
   threadFTP = class(TThread)
@@ -38,12 +39,13 @@ type
     lblVersaoNFEBD: TLabel;
     gbxVendedor: TRzGroupBox;
     Label4: TLabel;
-    lblVersaoLocal: TLabel;
     lblVersaoAtualizacao: TLabel;
     Label6: TLabel;
     btnAtualizar: TNxButton;
     btnCancelar: TNxButton;
     btnBanco: TNxButton;
+    ceVersaoLocal: TCurrencyEdit;
+    btnScriptAvulso: TNxButton;
     procedure btnAtualizarClick(Sender: TObject);
     procedure ftpUpdateStatus(ASender: TObject; const AStatus: TIdStatus; const AStatusText: String);
     procedure ftpUpdateWork(Sender: TObject; AWorkMode: TWorkMode; const AWorkCount: Integer);
@@ -53,6 +55,9 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnBancoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnScriptAvulsoClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     arquivo_local, arquivo_servidor: String;
@@ -74,7 +79,7 @@ var
 
 implementation
 
-uses uMenu, uDmDatabase, DmdDatabase_NFeBD, StrUtils;
+uses uMenu, uDmDatabase, DmdDatabase_NFeBD, StrUtils, UScriptAvulso;
 
 {$R *.dfm}
 
@@ -332,7 +337,7 @@ procedure TfrmUpdate.FormShow(Sender: TObject);
 begin
   dmDatabase.sqVersaoAtual.Open;
   lblVersaoAtualizacao.Caption := FormatFloat('0000',dmDatabase.fncVersoDoAtualiza);
-  lblVersaoLocal.Caption       := FormatFloat('0000',dmDatabase.sqVersaoAtualVERSAO_BANCO.AsInteger);
+  ceVersaoLocal.AsInteger      := dmDatabase.sqVersaoAtualVERSAO_BANCO.AsInteger;
   dmDatabase.sqVersaoAtual.Close;
 end;
 
@@ -365,15 +370,16 @@ begin
   ctVersao := dmDatabase.sdsVersao.CommandText;
   dmDatabase.sqVersaoAtual.Close;
   dmDatabase.sqVersaoAtual.Open;
-  i := dmDatabase.sqVersaoAtualVERSAO_BANCO.AsInteger;
+  //i := dmDatabase.sqVersaoAtualVERSAO_BANCO.AsInteger;
+  i := ceVersaoLocal.AsInteger;
   dmDatabase.qMax.Close;
   dmDatabase.qMax.Open;
   i2 := dmDatabase.qMaxID.AsInteger;
   i  := i + 1;
   while i <= i2 do
   begin
-    lblVersaoLocal.Caption := FormatFloat('0000',i);
-    lblVersaoLocal.Refresh;
+    ceVersaoLocal.AsInteger := i;
+    ceVersaoLocal.Refresh;
     Refresh;
     Sleep(1000);
     Application.ProcessMessages;
@@ -513,6 +519,32 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmUpdate.btnScriptAvulsoClick(Sender: TObject);
+var
+  vSenhaAux : String;
+begin
+  vSenhaAux := InputBox('', 'Senha:', '');
+  if vSenhaAux <> '3597' then
+  begin
+    MessageDlg('Senha inválida!',mtInformation,[mbOk],0);
+    exit;
+  end;
+
+  frmScriptAvulso := TfrmScriptAvulso.Create(Self);
+  frmScriptAvulso.ShowModal;
+  FreeAndNil(frmScriptAvulso);
+end;
+
+procedure TfrmUpdate.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Shift = [ssCtrl]) and (Key = 82) then //Ctrl R
+  begin
+    ceVersaoLocal.ReadOnly  := not(ceVersaoLocal.ReadOnly);
+    btnScriptAvulso.Visible := not(btnScriptAvulso.Visible);
+  end;
 end;
 
 end.
